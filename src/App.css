@@ -1,0 +1,125 @@
+body {
+  font-family: 'Caveat', cursive;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f1e8;
+}
+
+.book {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f4f1e8 0%, #e8dcc0 100%);
+}
+
+.page {
+  background: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  max-width: 600px;
+  width: 100%;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.question-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.question-section h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.sound-btn {
+  margin-left: 10px;
+  background: #ddd;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sound-btn:hover {
+  background: #ccc;
+}
+
+.image-section {
+  width: 100%;
+  height: 250px; /* 👈 tamaño fijo */
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 👈 CLAVE */
+}
+
+.image-placeholder {
+  height: 200px;
+  background: #f9f9f9;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #666;
+}
+
+.alternatives-section {
+  margin-bottom: 40px;
+}
+
+.alternative {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: space-between;
+}
+
+.alternative span {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation button {
+  padding: 10px 20px;
+  font-size: 18px;
+  background: #8b4513;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Caveat', cursive;
+}
+
+.navigation button:hover:not(:disabled) {
+  background: #654321;
+}
+
+.navigation button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.navigation span {
+  font-size: 20px;
+}
