@@ -12,7 +12,6 @@ function App() {
     localStorage.setItem('currentPage', currentPage)
   }, [currentPage])
 
-
   useEffect(() => {
     setAnswered(false)
     setSelectedAnswer(null)
@@ -21,18 +20,27 @@ function App() {
   const playSound = (src) => {
     try {
       const audio = new Audio(src)
-      audio.play().catch(err => console.log(err))
+      audio.play().catch(() => {})
     } catch (e) {
       console.log(e)
     }
   }
 
+  // 🔥 LÓGICA CORRECTA
   const handleAnswer = (index) => {
-    if (answered) return
+    const isCorrect = currentQuestion.alternatives[index].correct
+
     setSelectedAnswer(index)
-    if (currentQuestion.alternatives[index].correct) {
+
+    if (isCorrect) {
+      setAnswered(true)
+
+      setTimeout(() => {
+        setCurrentPage(prev =>
+          Math.min(prev + 1, questions.length - 1)
+        )
+      }, 800)
     }
-    setAnswered(true)
   }
 
   return (
@@ -61,18 +69,6 @@ function App() {
         }}
       >
 
-        {/* Score */}
-        <div
-          style={{
-            fontSize: "18px",
-            fontWeight: "500",
-            color: "#6c757d",
-            marginBottom: "16px",
-          }}
-        >
-  
-        </div>
-
         {/* Pregunta */}
         <h2
           style={{
@@ -87,7 +83,7 @@ function App() {
           {currentQuestion.text}
         </h2>
 
-        {/* Traducción pregunta */}
+        {/* Traducción */}
         <p
           style={{
             fontSize: "14px",
@@ -99,7 +95,7 @@ function App() {
           {currentQuestion.translation}
         </p>
 
-        {/* Audio pregunta */}
+        {/* Audio */}
         <button
           onClick={() => playSound(currentQuestion.audioQuestion)}
           style={{
@@ -113,9 +109,6 @@ function App() {
             cursor: "pointer",
             boxShadow: "0 8px 20px rgba(76, 175, 80, 0.3)",
             marginBottom: "24px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
           }}
         >
           🔊
@@ -130,7 +123,6 @@ function App() {
             maxWidth: "400px",
             borderRadius: "16px",
             marginBottom: "24px",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
           }}
         />
 
@@ -153,24 +145,26 @@ function App() {
               color: "#495057",
               fontSize: "18px",
               fontWeight: "500",
-              cursor: answered ? "not-allowed" : "pointer",
+              cursor: "pointer",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
               transition: "all 0.2s",
-              boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
             }
 
             if (selectedAnswer === index) {
               if (alt.correct) {
                 buttonStyle.background = "#d4edda"
                 buttonStyle.borderColor = "#c3e6cb"
-                buttonStyle.color = "#155724"
               } else {
                 buttonStyle.background = "#f8d7da"
                 buttonStyle.borderColor = "#f5c6cb"
-                buttonStyle.color = "#721c24"
               }
+            }
+
+            if (answered && alt.correct) {
+              buttonStyle.background = "#d4edda"
+              buttonStyle.borderColor = "#c3e6cb"
             }
 
             return (
@@ -201,14 +195,7 @@ function App() {
         </div>
 
         {/* Navegación */}
-        <div
-          style={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div style={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
           <button
             onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
             disabled={currentPage === 0}
