@@ -2,7 +2,7 @@ const questions = [
   {
     id: 1,
     text: "Hi, how are you?",
-    translation: "(Hola, cómo estás?)",
+    translation: "(Hola, ¿cómo estás?)",
     image: "/images/q1.jpg",
     audioQuestion: "/audio/q1/q1.mp3",
     alternatives: [
